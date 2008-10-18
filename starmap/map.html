@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>Star Map</title>
+  
+  <style type="text/css" media="screen">
+    body {min-width: 810px; min-height: 610px;}
+
+    #map {
+      position: absolute;
+      width: 800px;
+      height: 600px;
+      top: 10px;
+      right: 10px;
+
+      background-color: #ffdddd;
+    }
+  </style>
+  
+  <script type="text/javascript" charset="utf-8" 
+          src="http://openlayers.org/api/OpenLayers.js"> 
+  </script>
+  <!-- http://www.learningjquery.com/2006/09/textmate-bundle-for-jquery -->
+
+  
+</head>
+<body onload="">
+  <div id="map"> </div>
+  
+  <script type="text/javascript" charset="utf-8" defer="defer">
+    var map = new OpenLayers.Map('map');
+    
+    var base_opts = {isBaseLayer:true, numZoomLevels:5,};
+    var base = new OpenLayers.Layer.Image('base', 'full_jpg.jpg', 
+                                       new OpenLayers.Bounds(-1, -1, 1, 1), 
+                                       new OpenLayers.Size(3690, 3743));
+    
+    map.addLayer(base);
+    map.zoomToMaxExtent();
+  </script>
+  
+  
+</body>
+</html>
