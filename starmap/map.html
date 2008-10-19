@@ -23,6 +23,8 @@
   <script type="text/javascript" charset="utf-8" 
           src="http://openlayers.org/api/OpenLayers.js"> 
   </script>
+  <script type="text/javascript" charset="utf-8" src="starmap.js"> </script>
+  
   <!-- http://www.learningjquery.com/2006/09/textmate-bundle-for-jquery -->
 
   
@@ -30,18 +32,9 @@
 <body onload="">
   <div id="map"> </div>
   
+  
   <script type="text/javascript" charset="utf-8" defer="defer">
-    var map = new OpenLayers.Map('map');
-    
-    var base_opts = {isBaseLayer:true, numZoomLevels:5,};
-    var base = new OpenLayers.Layer.Image('base', 'full_jpg.jpg', 
-                                       new OpenLayers.Bounds(-1, -1, 1, 1), 
-                                       new OpenLayers.Size(3690, 3743));
-    
-    map.addLayer(base);
-    map.zoomToMaxExtent();
+    initmap();
   </script>
-  
-  
 </body>
 </html>
