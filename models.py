@@ -1,16 +1,16 @@
 from django.db import models
 
-# Create your models here.
-
 class PositionManager(models.Manager):
     def within(self, point, radius):
         x = point.x
         y = point.y
         z = point.z
-        queryset = Position.filter(x__gte=x-radius, x__lte=x+radius)
-        queryset = queryset.filter(y__gte=y-radius, y__lte=y+radius)
+        queryset = Position.filter(x__range = (x-radius, x+radius))
+        queryset = queryset.filter(y__range = (y-radius, y+radius))
         if z: 
-            queryset = queryset.filter(z__gte=z-radius, z__ltr=z+radius)
+            queryset = queryset.filter(z__range = (z-radius, z+radius))
+        
+        return queryset
 
 class Position(models.Model):
     x = models.FloatField()
@@ -24,4 +24,19 @@ class Position(models.Model):
 
 
 class Solarsystem(models.Model):
-    position = OneToOneField
+    position = models.OneToOneField(Position)
+    name = models.CharField(max_length = 25)
+
+class Planet(models.Model):
+    solarsystem = models.ForeignKey(Solarsystem)
+    rank = models.PositiveIntegerField()
+    
+    class Meta:
+        unique_together = ("solarsystem", "rank")
+
+class Fleet(models.Model):
+    position = models.OneToOneField(Position)
+
+class Ship(models.)
+    fleet = models.ForeignKey(Fleet)
+    name = models.CharField(max_length = 25)
