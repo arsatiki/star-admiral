@@ -1,4 +1,10 @@
 from django.db import models
+from django.contrib.auth import models as auth
+
+
+def Faction(models.Models):
+    user = models.ForeignKey(auth.User)
+
 
 class PositionManager(models.Manager):
     def within(self, point, radius):
