@@ -6,6 +6,13 @@ from django.views.generic import list_detail
 
 from .models import Game
 
+gameset = {'queryset': Game.objects.all()}
+
 urlpatterns = patterns('',
-    ('^$', list_detail.object_list, {'queryset': Game.objects.all()}),
+    ('^$', list_detail.object_list, gameset),
+
+    # Game detail. TODO: Convert to slug?
+    url(r'^(?P<id>\d+)/', list_detail.object_detail,
+        dict(gameset, object_id='id'),
+        name="game_detail"),
 )

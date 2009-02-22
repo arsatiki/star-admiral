@@ -6,7 +6,10 @@
     {% if object_list %}
     <ol>
         {% for game in object_list %}
-        <li>{{ game }}</li>
+        <li>
+            <a href="{{ game.get_absolute_url }}">{{ game }}</a>
+            {{ game.created|timesince}}
+        </li>
         {% endfor %}
     </ol>
     {% endif %}

@@ -8,7 +8,16 @@ class Game(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return u'%s %s (%s)' % (self.name, self.owner, self.created)
+        return u'%s %s' % (self.name, self.owner)
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ('game_detail', (), {'id': self.id})
+    
+    class Meta:
+        ordering = ['created']
+        get_latest_by = 'created'
+        
 
 class Turn(models.Model):
     number = models.PositiveSmallIntegerField()
