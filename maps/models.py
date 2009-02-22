@@ -2,16 +2,13 @@ from django.db import models
 from django.contrib.auth import models as auth
 
 
-def Faction(models.Models):
-    user = models.ForeignKey(auth.User)
-
-
 class PositionManager(models.Manager):
     def within(self, point, radius):
         x = point.x
         y = point.y
         z = point.z
-        queryset = Position.filter(x__range = (x-radius, x+radius))
+        queryset = self.get_query_set()
+        queryset = queryset.filter(x__range = (x-radius, x+radius))
         queryset = queryset.filter(y__range = (y-radius, y+radius))
         if z: 
             queryset = queryset.filter(z__range = (z-radius, z+radius))
