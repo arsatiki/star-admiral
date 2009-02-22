@@ -1,6 +1,8 @@
 from site_settings import *
+import sys
 
 projectpath = get_projectpath(__file__)
+sys.path.append(projectpath())
 
 SITE_ID = 1701
 
@@ -11,6 +13,6 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 ROOT_URLCONF = 'urls'
 
-INSTALLED_APPS += ('django.contrib.admin', 'games')
+INSTALLED_APPS += ('django.contrib.admin', 'staradmiral.games')
 
 TEMPLATE_DIRS += (projectpath('templates'), )
