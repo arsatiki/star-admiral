@@ -9,4 +9,6 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 ROOT_URLCONF = 'urls'
 
-INSTALLED_APPS = INSTALLED_APPS + ('django.contrib.admin',)
+INSTALLED_APPS += ('django.contrib.admin', 'games')
+
+TEMPLATE_DIRS += projectpath('templates')
