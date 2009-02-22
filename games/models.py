@@ -5,6 +5,7 @@ from django.contrib.auth import models as auth
 class Game(models.Model):
     name = models.CharField()
     owner = models.ForeignKey(auth.User)
+    created = models.DateTimeField(auto_now_add=True)
 
 class Turn(models.Model):
     number = models.PositiveSmallIntegerField()
