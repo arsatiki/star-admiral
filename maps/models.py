@@ -40,6 +40,6 @@ class Planet(models.Model):
 class Fleet(models.Model):
     position = models.OneToOneField(Position)
 
-class Ship(models.)
+class Ship(models.Model):
     fleet = models.ForeignKey(Fleet)
     name = models.CharField(max_length = 25)
