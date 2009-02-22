@@ -6,6 +6,9 @@ class Game(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(auth.User)
     created = models.DateTimeField(auto_now_add=True)
+    
+    def __unicode__(self):
+        return u'%s %s (%s)' % (self.name, self.owner, self.created)
 
 class Turn(models.Model):
     number = models.PositiveSmallIntegerField()
