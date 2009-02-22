@@ -1,5 +1,7 @@
 from site_settings import *
 
+projectpath = get_projectpath(__file__)
+
 SITE_ID = 1701
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
@@ -11,4 +13,4 @@ ROOT_URLCONF = 'urls'
 
 INSTALLED_APPS += ('django.contrib.admin', 'games')
 
-TEMPLATE_DIRS += projectpath('templates')
+TEMPLATE_DIRS += (projectpath('templates'), )
