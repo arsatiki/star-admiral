@@ -1,0 +1,18 @@
+{% extends "games/base.html" %}
+
+{% block content %}
+    <h1>{{ object }}</h1>
+    
+    <p>Current turn is {{ object.current_turn }}.</p>
+
+    {% if object_list %}
+    <ol>
+        {% for game in object_list %}
+        <li>
+            <a href="{{ game.get_absolute_url }}">{{ game }}</a>
+            {{ game.created|timesince}}
+        </li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+{% endblock %}

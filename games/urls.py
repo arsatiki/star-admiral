@@ -12,7 +12,6 @@ urlpatterns = patterns('',
     ('^$', list_detail.object_list, gameset),
 
     # Game detail. TODO: Convert to slug?
-    url(r'^(?P<id>\d+)/', list_detail.object_detail,
-        dict(gameset, object_id='id'),
-        name="game_detail"),
+    url(r'^(?P<object_id>\d+)/', list_detail.object_detail,
+        gameset, name="game_detail"),
 )
