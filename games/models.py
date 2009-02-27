@@ -28,7 +28,6 @@ class Game(models.Model):
         ordering = ['created']
         get_latest_by = 'created'
         
-
 class Turn(models.Model):
     number = models.PositiveSmallIntegerField()
     game = models.ForeignKey(Game)
@@ -39,6 +38,13 @@ class Turn(models.Model):
 
 class Faction(models.Model):
     game = models.ForeignKey(Game)
-    user = models.ForeignKey(auth.User)
+    user = models.ForeignKey(auth.User) # todo "player"?
     name = models.CharField(max_length=100)
     
+    class Meta:
+        unique_together = ('game', 'name')
+
+class Orders(models.Model):
+    turn = models.ForeignKey(Turn)
+    faction = models.ForeignKey(Faction)
+

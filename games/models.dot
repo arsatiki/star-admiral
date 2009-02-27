@@ -1,0 +1,8 @@
+digraph game_models {
+Game -> auth_User [label="owner"];
+Turn -> Game;
+Faction -> Game;
+Faction  -> auth_User [label="player?"];
+
+Orders -> Faction; Orders -> Turn;
+}
