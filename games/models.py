@@ -38,7 +38,7 @@ class Turn(models.Model):
 
 class Faction(models.Model):
     game = models.ForeignKey(Game)
-    user = models.ForeignKey(auth.User) # todo "player"?
+    player = models.ForeignKey(auth.User)
     name = models.CharField(max_length=100)
     
     class Meta:
