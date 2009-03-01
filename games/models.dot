@@ -3,4 +3,7 @@ Game -> "auth.User" [label="owner"];
 Turn -> Game;
 Faction -> Game; Faction  -> "auth.User" [label="player"];
 Orders -> Faction; Orders -> Turn;
+
+Invite -> Game; Invite -> "auth.User" [label="player"];
+
 }

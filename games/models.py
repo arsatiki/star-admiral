@@ -8,7 +8,7 @@ class Game(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return u'%s %s' % (self.name, self.owner)
+        return self.name
     
     @models.permalink
     def get_absolute_url(self):
