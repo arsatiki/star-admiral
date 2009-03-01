@@ -12,15 +12,15 @@ class Game(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        # TODO: when in setup phase
-        # return setup view url
-        return ('game_detail', (), {'id': self.id})
+        if self.setup_phase():
+            return ("games.views.setup_game", (self.id,), {})
+        return ('game_detail', (), {'object_id': self.id})
     
     def setup_phase(self):
         return bool(self.turn_set)
     
     def current_turn(self):
-        if self.setup_phase:
+        if self.setup_phase():
             return u'setup phase'
         return self.turn_set.latest().number
     
