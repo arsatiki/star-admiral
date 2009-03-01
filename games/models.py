@@ -39,6 +39,9 @@ class Turn(models.Model):
     number = models.PositiveSmallIntegerField()
     game = models.ForeignKey(Game)
 
+    def __unicode__(self):
+        return u"Turn %d of game (%s)", (self.number, self.game)
+
     class Meta:
         unique_together = ('number', 'game')
         get_latest_by = 'number'
@@ -47,6 +50,9 @@ class Faction(models.Model):
     game = models.ForeignKey(Game)
     player = models.ForeignKey(auth.User)
     name = models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return self.name
     
     class Meta:
         unique_together = ('game', 'name')
