@@ -10,6 +10,6 @@ def setup_game(request, game_id):
     if not game.setup_phase():
         return HttpResponsePermanentRedirect(game.get_absolute_url())
     
-    c = {}
+    c = {'game': game}
     rctx = RequestContext(request)
     return render_to_response('games/setup.html', c, rctx)

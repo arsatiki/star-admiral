@@ -27,7 +27,14 @@ class Game(models.Model):
     class Meta:
         ordering = ['created']
         get_latest_by = 'created'
-        
+
+class Invite(models.Model):
+    game = models.ForeignKey(Game)
+    player = models.ForeignKey(auth.User)
+    
+    def __unicode__(self):
+        return u"Invite to player %s for game %s" % (self.player, self.game)
+
 class Turn(models.Model):
     number = models.PositiveSmallIntegerField()
     game = models.ForeignKey(Game)

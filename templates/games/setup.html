@@ -2,6 +2,33 @@
 
 {% block content %}
 <h1>Hello, {{ user.first_name }}</h1>
+
+<p>Welcome to game “{{ game }}.” The owner of this game is {{ game.owner }}.
     
+{% ifequal user game.owner %}
+    <h2>Invite players</h2>
+    <p>TODO</p>
+{% endifequal %}
+
+
+{% if game.faction_set %}
+<h2>Current Players</h2>
+<ul>
+{% for faction in game.faction_set.all %}
+   <li>{{ faction }} ({{ faction.player }})</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if game.invite_set %}
+<h2>Invited Players</h2>
+<ul>
+{% for invite in game.invite_set.all %}
+   <li>{{ invite.player }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
 {% endblock %}
 
