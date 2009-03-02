@@ -2,7 +2,6 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 from django.contrib import admin
-from django.contrib.auth import views as auth
 
 from django.views.generic import simple
 
@@ -15,13 +14,12 @@ urlpatterns = patterns('',
     # Splash screen
     ('^$', simple.direct_to_template, {'template': 'index.html'}),
     
-    # Login and logout TODO
-    url('^login/', auth.login, {}, name='login'),
-    url('^logout/', auth.logout, {'next_page': '/games/'}, name='logout'),
-    
     # Games
     ('^games/', include('games.urls')),
+    
+    # Accounts
+    ('^accounts/', include('accounts.urls')),
    
-   (r'^admin/(.*)', admin.site.root),
+    (r'^admin/(.*)', admin.site.root),
 
 )
