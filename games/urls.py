@@ -4,6 +4,8 @@ from django.conf.urls.defaults import *
 
 from django.views.generic import list_detail
 
+from django.contrib.auth.decorators import login_required
+
 from .models import Game
 from .views import setup_game
 
@@ -13,7 +15,7 @@ urlpatterns = patterns('',
     ('^$', list_detail.object_list, gameset),
 
     # Game detail. TODO: Convert to slug?
-    url(r'^(?P<object_id>\d+)/$', list_detail.object_detail,
+    url(r'^(?P<object_id>\d+)/$', login_required(list_detail.object_detail),
         gameset, name="game_detail"),
     
     # Game setup
