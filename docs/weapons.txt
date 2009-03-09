@@ -1,0 +1,21 @@
+Notes on weapons
+=====================
+
+
+Beam visualization
+-------------
+
+* (Laser) parameters: accuracy/dissipation, power. 
+* Battery parameters: number, modifiers (heavy/pd)
+
+* Spectral mapping
+    * power = spectral hue (H ∈ [0°, 240°])
+    * accuracy = brighness or saturation (or combination)?
+    * or alphachannel? 
+        * cons: with black bg equal to bright/saturation
+        * pros: can stack several beams together
+    * battery total = beam width with sqrt scaling
+        * might look cool with alpha stacking. Might not.
+
+
+* r² drain? (a gradient?)
