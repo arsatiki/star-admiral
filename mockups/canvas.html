@@ -20,9 +20,7 @@
 
 
     #hue {
-        height: 40px; 
-        outline: 1px solid silver; 
-        background-image: -webkit-gradient(linear, left top, right top, 
+        background-image: -webkit-gradient(linear, left top, right bottom, 
             color-stop(.00, hsl(  0, 66%, 50%)),
             color-stop(.25, hsl( 60, 66%, 50%)),
             color-stop(.50, hsl(120, 66%, 50%)),
@@ -32,6 +30,15 @@
 
     }
     
+    #controls { width: 800px; margin: 0 auto;}
+
+    #beam { height: 20px; margin-top: 1em;
+        background-image: -webkit-gradient(linear, left top, left bottom, 
+            from(rgba(255,0,0,0)), color-stop(.5, #f44), 
+            to(rgba(255,0,0,0))
+            );
+        
+    }
     </style>
 
     <script src="http://www.google.com/jsapi"></script>
@@ -39,15 +46,18 @@
         google.load("jquery", "1.3.2");
         google.load("jqueryui", "1.7.0");
     </script>
+    <link type="text/css" href="css/vader/jquery-ui-1.7.custom.css" rel="Stylesheet" />	
+    
+    
     <script type="text/javascript" charset="utf-8">
-    $(function {
-        /*$('#controls #hue').slider({min: 0, max: 240, animate: true, step: 20});*/
-        
+    $(function() {
+        $('#hue').slider({animate: true, 
+            min: 0, max: 240, step: 20, value: 120
+            });
     });
 
     function draw() {
         var ctx = document.getElementById('canv').getContext('2d');
-
     }
 
         
@@ -62,5 +72,12 @@
         <div id="hue"></div>
     </div>
     
+    <div id="beam">
+        color-stop(.00, hsla(  0, 66%, 50%,  0)),
+        color-stop(.25, hsla( 60, 66%, 100%, 1)),
+        color-stop(.50, hsla(120, 66%, 100%, 1)),
+        color-stop(1.0, hsla(  0, 66%, 50%,  0))
+        
+    </div>
         
 </body>
