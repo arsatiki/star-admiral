@@ -18,6 +18,18 @@ Ekan version featuret
 Graafiset tarpeet
 =================
 
+* scout
+* freighter
+* megafreighter
+
+* escort / monitor
+* Destroyer
+* cruiser
+* battlecruiser
+* battleship
+
+* slave ship
+
 Leiskat / leiskaluonnokset
 --------------------------
 * Etusivu
