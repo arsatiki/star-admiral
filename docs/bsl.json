@@ -1,0 +1,5 @@
+frames = [ frameobjects ]
+frameobject = {'timecode': 1, events: [ eventobjs ]}
+eventobj = {'ship', "commands": [ cmdobjs ]}
+cmdobj = { ... }
+
