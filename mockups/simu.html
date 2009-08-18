@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Duelling Ban-Joes</title>
+    <title>Battle Simulator</title>
     
     <style type="text/css" media="screen">
     body {
@@ -11,42 +11,31 @@
     }
 
     #wrapper {
-        width: 802px; height: 402px;
+        width: 842px; height: 442px;
         margin: 30px auto 1em;
         border: 1px solid #ddd;
         background: rgba(0, 0, 64, .5);
+        padding: 20px;
         -webkit-border-radius: 20px;
     }
 
+    canvas {outline: 1px solid red;}
 
-    #hue {
-        background-image: -webkit-gradient(linear, left top, right bottom, 
-            color-stop(.00, hsl(  0, 66%, 50%)),
-            color-stop(.25, hsl( 60, 66%, 50%)),
-            color-stop(.50, hsl(120, 66%, 50%)),
-            color-stop(.75, hsl(180, 66%, 50%)),
-            color-stop(1.0, hsl(240, 66%, 50%))
-            );
-
-    }
-    
-    #controls { width: 800px; margin: 0 auto;}
-
-    #beam { height: 20px; margin-top: 1em;
-        background-image: -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(255,0,0,0)), color-stop(.5, #f44), 
-            to(rgba(255,0,0,0))
-            );
-        
-    }
     </style>
 
-    <script type="text/javascript" src="processing.js"></script>
-    <script >
+    <link rel="stylesheet" href="css/simu.css" type="text/css"
+          media="screen" title="no title" charset="utf-8">
+
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/ships.js"></script>
+    <script type="text/javascript" src="js/anim.js"></script>
     
 
+    
+          
+
 </head>
-<body id="foo" onload="draw();">
+<body>
     <div id="wrapper">
         <canvas id="canv" width="800" height="400"> </canvas>
     </div>
