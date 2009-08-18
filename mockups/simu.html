@@ -28,6 +28,28 @@
 
     <script type="text/javascript" src="js/utils.js"></script>
     <script type="text/javascript" charset="utf-8">
+        function beam1(c, slx, sly, tgx, tgy, w, style) {
+            c.save();
+            c.beginPath();
+            c.moveTo(slx, sly);
+            c.setTransform(1, 0, 0, 1, 0, 0);
+            c.lineWidth = w;
+            c.strokeStyle = style;
+            c.lineTo(tgx, tgy);
+            c.stroke();
+            c.restore();
+            //console.log("I did it!");
+        }
+        
+        function beam(c, slx, sly, tgx, tgy) {
+            c.lineCap = "round";
+            beam1(c, slx, sly, tgx, tgy, 3, "#f00");
+            beam1(c, slx, sly, tgx, tgy, 1.5, "#fff");
+            
+        }
+    </script>
+    
+    <script type="text/javascript" charset="utf-8">
     function run() {
         var c = document.getElementById("canv").getContext("2d");
         var frameRate = 30;
@@ -38,10 +60,8 @@
         
         var plob = new Image();
         plob.src = "pics/ship.png";
-        
-        console.log(c.canvas.offsetWidth);
-        console.log(plob.height/2);
-        
+        var lazer = new Audio("sfx/Arrow_Swoosh.wav");
+                
         function all_ships(m) {
             var ship_id;
             for (ship_id = 0; ship_id < ships.length; ship_id++) {
@@ -55,12 +75,24 @@
             //console.log((frame-rem)/frameRate + ":" + rem);
             // blankkaa ruutu
             c.save();
-            c.clearRect(0, 0, c.canvas.offsetWidth, c.canvas.offsetHeight);
+            c.clearRect(0, 0, c.canvas.width, c.canvas.height);
 
             c.translate(frame % 800, 200);
             c.rotate(Math.PI/2);
-            c.drawImage(plob, -plob.width/2, -plob.height/2);
-            
+            c.translate(-plob.width/2, -plob.height/2);
+            c.drawImage(plob, 0, 0);
+
+            var plup = frame % (5*frameRate);
+            if (plup < frameRate/1.5) {
+                if (plup == 0)
+                    lazer.play();
+                
+                var tgx = 100 + frame % 800 + 5*Math.random();
+                var tgy = 200 + 5*Math.random();
+                
+                beam(c, 14, 20, tgx, tgy);
+                beam(c, 26, 20, tgx, tgy);                
+            }
             // piirrä shipit
             all_ships("move");
             all_ships("draw");
