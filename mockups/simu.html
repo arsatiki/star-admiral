@@ -27,15 +27,58 @@
           media="screen" title="no title" charset="utf-8">
 
     <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/ships.js"></script>
-    <script type="text/javascript" src="js/anim.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    function run() {
+        var c = document.getElementById("canv").getContext("2d");
+        var frameRate = 30;
+        
+        var frame = 0;
+        
+        var ships = [];
+        
+        var plob = new Image();
+        plob.src = "pics/ship.png";
+        
+        console.log(c.canvas.offsetWidth);
+        console.log(plob.height/2);
+        
+        function all_ships(m) {
+            var ship_id;
+            for (ship_id = 0; ship_id < ships.length; ship_id++) {
+                (ships[ship_id][m])();
+            }
+        }
+        
+        function draw() {
+            frame++;
+            var rem = frame % frameRate;
+            //console.log((frame-rem)/frameRate + ":" + rem);
+            // blankkaa ruutu
+            c.save();
+            c.clearRect(0, 0, c.canvas.offsetWidth, c.canvas.offsetHeight);
+
+            c.translate(frame % 800, 200);
+            c.rotate(Math.PI/2);
+            c.drawImage(plob, -plob.width/2, -plob.height/2);
+            
+            // piirrä shipit
+            all_ships("move");
+            all_ships("draw");
+            
+            c.restore();
+        }
+        
+        setInterval(function(){draw()}, 1000/50);
+
+    }
+    </script>
     
 
     
           
 
 </head>
-<body>
+<body onload="run()">
     <div id="wrapper">
         <canvas id="canv" width="800" height="400"> </canvas>
     </div>
