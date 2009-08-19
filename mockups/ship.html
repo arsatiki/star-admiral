@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+    <title>Battle Simulator</title>
+    
+    <style type="text/css" media="screen">
+        canvas { border: 1px solid white; }
+    </style>
+
+    <link rel="stylesheet" href="css/simu.css" type="text/css"
+          media="screen" title="no title" charset="utf-8">
+
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/ships.js"></script>
+        
+    <script type="text/javascript" charset="utf-8">
+    function run() {
+        console.log("Go");
+        var canvas = document.getElementById("canv");
+        var k, ships = {};
+        
+        ctx = canvas.getContext("2d");
+        
+        var framerate = 25;
+        s = Object.create(Ship);
+        
+        s.load_icon("pics/ship.png");
+        s.pos = Vec2.new_at(0, 300);
+        s.ang_vel = Math.PI/12;
+        s.vel = Vec2.new_at(10, 0);
+
+        for (k = 0; k < 5; k++) {
+            ships[k] = Object.create(s);
+            ships[k].pos = Vec2.new_at(25*k - 25*Math.pow(k-1.5, 2), (k+1)*75);
+            ships[k].ang_vel += k * Math.PI / 24;
+        }
+        
+        
+        setInterval(function() {
+            ctx.clearRect(0, 0, 800, 600);
+            for (k = 0; k < 5; k++) {
+                ships[k].update(1/framerate).draw(ctx);
+            }
+        }, 1000/framerate);
+    }
+    </script>
+    
+
+    
+          
+
+</head>
+<body onload="run()">
+    <div id="wrapper">
+        <canvas id="canv" width="800" height="600"> </canvas>
+    </div>
+            
+</body>
