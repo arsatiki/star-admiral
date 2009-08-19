@@ -57,7 +57,7 @@
         
         var plob = new Image();
         plob.src = "pics/ship.png";
-        var lazer = new Audio("sfx/Arrow_Swoosh.wav");
+        var lazer = !Boolean(window.Audio)? new Audio("sfx/Arrow_Swoosh.wav"): null;
                 
         function all_ships(m) {
             var ship_id;
@@ -81,14 +81,13 @@
 
             var plup = frame % (5*frameRate);
             if (plup < frameRate/1.5) {
-                if (plup == 0)
+                if (lazer && plup == 0)
                     lazer.play();
                 
-                var tgx = 100 + frame % 800 + 5*Math.random();
-                var tgy = 200 + 5*Math.random();
+                var tgx = 300 + frame % 800;
+                var tgy = 200;
                 
-                beam(c, 14, 20, tgx, tgy);
-                beam(c, 26, 20, tgx, tgy);                
+                beam(c, [14, 20, 26, 20], tgx, tgy, 3);
             }
             // piirrä shipit
             all_ships("move");
@@ -109,7 +108,7 @@
 </head>
 <body onload="run()">
     <div id="wrapper">
-        <canvas id="canv" width="800" height="400"> </canvas>
+        <canvas id="canv" width="800" height="600"> </canvas>
     </div>
             
 </body>
