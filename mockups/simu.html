@@ -5,52 +5,49 @@
 <head>
     <title>Battle Simulator</title>
     
-    <style type="text/css" media="screen">
-    body {
-        background: url('galaxy_starfield.png');
-    }
-
-    #wrapper {
-        width: 842px; height: 442px;
-        margin: 30px auto 1em;
-        border: 1px solid #ddd;
-        background: rgba(0, 0, 64, .5);
-        padding: 20px;
-        -webkit-border-radius: 20px;
-    }
-
-    canvas {outline: 1px solid red;}
-
-    </style>
-
     <link rel="stylesheet" href="css/simu.css" type="text/css"
           media="screen" title="no title" charset="utf-8">
 
     <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/ships.js"></script>
+    
     <script type="text/javascript" charset="utf-8">
-        function beam1(c, slx, sly, tgx, tgy, w, style) {
-            c.save();
+        function beam1(c, sources, tgx, tgy, ws, styles) {
+            var sid, bid;
+
             c.beginPath();
-            c.moveTo(slx, sly);
-            c.setTransform(1, 0, 0, 1, 0, 0);
-            c.lineWidth = w;
-            c.strokeStyle = style;
-            c.lineTo(tgx, tgy);
-            c.stroke();
-            c.restore();
+
+            for (bid = 0; bid < ws.length; bid++) {
+                c.lineWidth = ws[bid];
+                c.strokeStyle = styles[bid];
+                
+                for (sid = 0; sid < sources.length; sid += 2) {
+                    c.moveTo(sources[sid], sources[sid+1]);
+                    
+                    c.save();
+                    c.setTransform(1, 0, 0, 1, 0, 0);
+                    c.lineTo(tgx, tgy);
+                    c.restore();
+                }
+
+                c.stroke();
+            }
+            
             //console.log("I did it!");
         }
         
-        function beam(c, slx, sly, tgx, tgy) {
+        function beam(c, sources, tgx, tgy, sigma) {
             c.lineCap = "round";
-            beam1(c, slx, sly, tgx, tgy, 3, "#f00");
-            beam1(c, slx, sly, tgx, tgy, 1.5, "#fff");
-            
+            tgx += sigma * Math.random();
+            tgy += sigma * Math.random();
+            beam1(c, sources, tgx, tgy, [3, 1.5], ["#f00", "#fff"]);
         }
     </script>
     
     <script type="text/javascript" charset="utf-8">
     function run() {
+        console.log("Go");
+        return;
         var c = document.getElementById("canv").getContext("2d");
         var frameRate = 30;
         
