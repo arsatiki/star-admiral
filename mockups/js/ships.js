@@ -109,6 +109,7 @@ var Ship = function() {
     
 }();
 
+Math.random0w = function(w) { return w*(Math.random() - 0.5); };
 
 var Beam = function() {
     var that = this;
@@ -123,8 +124,8 @@ var Beam = function() {
             var lineWidths = [this.width, this.width*2/3];
             var colors = [that.levels[this.level], "#fff"];
                         
-            var tgx = target.x + this.sigma * this.width * Math.random();
-            var tgy = target.y + this.sigma * this.width * Math.random();
+            var tgx = target.x + Math.random0w(this.sigma * this.width);
+            var tgy = target.y + Math.random0w(this.sigma * this.width);
 
             ctx.save();
             ctx.beginPath();
