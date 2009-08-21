@@ -116,15 +116,15 @@ var Beam = function() {
     
         
     return {
-        'level': 1, 'width': 3, 'sigma': 3,
+        'level': 1, 'width': 3, 'sigma': 1,
         
         'fire': function(ctx, sources, target) {
             var sid, bid;
             var lineWidths = [this.width, this.width*2/3];
             var colors = [that.levels[this.level], "#fff"];
                         
-            var tgx = target.x + this.sigma * Math.random();
-            var tgy = target.y + this.sigma * Math.random();
+            var tgx = target.x + this.sigma * this.width * Math.random();
+            var tgy = target.y + this.sigma * this.width * Math.random();
 
             ctx.save();
             ctx.beginPath();
