@@ -19,7 +19,9 @@
     function run() {
         console.log("Go");
         var canvas = document.getElementById("canv");
-        var k, ships = {};
+        var k; ships = [];
+        
+        var n_ships = 7;
         
         ctx = canvas.getContext("2d");
         
@@ -28,20 +30,44 @@
         
         s.load_icon("pics/ship.png");
         s.pos = Vec2.new_at(0, 300);
-        s.ang_vel = Math.PI/12;
-        s.vel = Vec2.new_at(10, 0);
+        //s.ang_vel = Math.PI/12;
+        //s.vel = Vec2.new_at(10, 0);
 
-        for (k = 0; k < 5; k++) {
+        var alpha;
+        for (k = 0; k < n_ships; k++) {
             ships[k] = Object.create(s);
-            ships[k].pos = Vec2.new_at(25*k - 25*Math.pow(k-1.5, 2), (k+1)*75);
-            ships[k].ang_vel += k * Math.PI / 24;
+            //ships[k].pos = Vec2.new_at(25*k - 25*Math.pow(k-1.5, 2), (k+1)*75);
+            //ships[k].ang_vel += k * Math.PI / 24;
+            
+            var r = 200;
+            alpha = k * 2*Math.PI / n_ships;
+
+            ships[k].pos = Vec2.new_at(400 + r*Math.cos(alpha), 300 + r*Math.sin(alpha));
+            ships[k].angle = Math.PI + alpha + Math.PI/4.4;
+            ships[k].vel = Vec2.new_at(Math.cos(ships[k].angle), Math.sin(ships[k].angle));
+            ships[k].ang_vel = -0.005;
         }
-        
-        
+
+        Beam.width = 3;
+
         setInterval(function() {
             ctx.clearRect(0, 0, 800, 600);
-            for (k = 0; k < 5; k++) {
+            for (k = 0; k < ships.length; k++) {
                 ships[k].update(1/framerate).draw(ctx);
+                /*if (k == 2 && Math.abs(ships[k].angle % 2*Math.PI) < 0.8 ) {
+
+                    var t = ships[k].local(0, 0);
+                    var s = ships[(k+1) % ships.length].local(0, 0);
+                    Beam.fire(ctx, [s], t);
+                }*/
+                var t_i = k; var s_i = (t_i + 2) % ships.length;
+                var ss = ships[s_i];
+                var tt = ships[t_i];
+                Beam.level = k; // fugly, fix
+                Beam.width = 2+k/2;
+                Beam.sigma = 1+k/3;
+                Beam.fire(ctx, [ss.local(14, 20), ss.local(26, 20)], tt.local(16, 25));
+                
             }
         }, 1000/framerate);
     }
