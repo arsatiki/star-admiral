@@ -49,9 +49,7 @@ var Vec2 = function() {
             var newv = Object.create(this);
             return newv.imul(scalar);
         }
-
-        
-    }
+    };
 }();
 
 Vec2.i = Vec2.new_at(1,0);
@@ -70,7 +68,14 @@ var Ship = function() {
         // angle and angular speed
         'angle': 0, 'ang_vel': 0,
         
+        'in_sector': function(target, sector_angle) {
+            var dir = target.position.add(this.position.scale(-1));
+            var angular_diff = Math.abs(dir.angle() - this.angle);
+            return (angular_diff > sector_angle/2);
+        },
+        
         'transform_to_local': function(ctx) {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.translate(this.pos.x, this.pos.y);
             ctx.rotate(Math.PI/2);
             ctx.rotate(this.angle);
@@ -97,33 +102,32 @@ var Ship = function() {
             return this;
         },
         
-        'local': function(x, y) { return {'x': x, 'y': y, 'space': this}; }
-    }
+        'local': function(x, y) {
+            return {'x': x, 'y': y, 'space': this};
+        }
+    };
     
 }();
 
+
 var Beam = function() {
     var that = this;
-    that.levels = [0, 30, 60, 120, 240, 270];
+    that.levels = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
     
-    function hue(level) {
-        return "hsl( " + that.levels[level] + ", 100%, 100%)";
-    }
-    
+        
     return {
         'level': 1, 'width': 3, 'sigma': 3,
         
-        'hue': function(l) { return that.levels[l]; },
         'fire': function(ctx, sources, target) {
             var sid, bid;
-            var lineWidths = [this.width, this.width-1.5];
-            var colors = [that.hue(this.level), "#fff"];
+            var lineWidths = [this.width, this.width*2/3];
+            var colors = [that.levels[this.level], "#fff"];
                         
             var tgx = target.x + this.sigma * Math.random();
             var tgy = target.y + this.sigma * Math.random();
-            
+
             ctx.save();
-            c.beginPath();
+            ctx.beginPath();
             ctx.lineCap = "round";
             
             for (bid = 0; bid < colors.length; bid++) {
@@ -133,11 +137,9 @@ var Beam = function() {
                 for (sid = 0; sid < sources.length; sid++) {
                     sources[sid].space.transform_to_local(ctx);
                     ctx.moveTo(sources[sid].x, sources[sid].y);
-                    ctx.save();
-                    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
                     target.space.transform_to_local(ctx);
                     ctx.lineTo(tgx, tgy);
-                    ctx.restore();
                 }
                 ctx.stroke();
             }
