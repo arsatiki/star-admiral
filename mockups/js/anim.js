@@ -32,10 +32,18 @@ var CanvasManager = (function() {
             return this;
         }, 
         
-        draw: function() {
+        draw: function(opts) {
+            var canvas;
+
+            if (opts.clear) {
+                canvas = this.context.canvas;
+                this.context.clearRect(0, 0, canvas.width, canvas.height);
+            }
             var outer = this;
             this.nodes.sort(sceneObjectSort);
-            this.nodes.forEach(function(x) {x.node.draw(outer.context);});
+            this.nodes.forEach(function(x) {
+                x.node.draw(outer.context);
+            });
         }, 
         
         add: function(node, z, TTL) {
