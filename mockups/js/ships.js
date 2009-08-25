@@ -125,10 +125,15 @@ var Beam = (function() {
         'level': 1, 'width': 3, 'sigma': 1,
         
         'fire': function (sources, target, opts) {
-            // TODO: handle opts
+            var opt;
+            
             newbeam = Object.create(this);
             newbeam.sources = sources;
             newbeam.target = target;
+            for (opt in opts)
+                if (opt in newbeam)
+                    newbeam[opt] = opts[opt];
+            
             return newbeam;
         },
         
