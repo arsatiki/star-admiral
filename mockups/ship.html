@@ -47,28 +47,26 @@
             ships[k].pos = Vec2.new_at(400, 300).iadd(Vec2.radial(r, alpha));
             
             ships[k].angle = Math.PI + alpha + Math.PI/4.4;
-            ships[k].vel = Vec2.radial(1, ships[k].angle);
+            ships[k].vel = Vec2.radial(5, ships[k].angle);
             ships[k].ang_vel = -0.005;
             
             scene.add(ships[k]);
         }
-
-        // TODO: ADD BEAM OBJECTS
-
-        Beam.width = 3;
+        
+        for (k = 0; k < ships.length; k++) {
+            var aggressor = ships[k];
+            var target = ships[(k - 2 + ships.length) % ships.length];
+            var sources = [aggressor.local(14, 20), aggressor.local(26, 20)];
+            
+            var opts = {level: k, width: 2+k/2};
+            
+            scene.add(
+                Beam.fire(sources, target.local(20, 25), opts),
+                {z: 1, TTL: 5+2*k}
+            );
+        }
 
         setInterval(function() {
-            /*for (k = 0; k < ships.length; k++) {
-                ships[k].update(1/framerate).draw(ctx);
-                var t_i = k; var s_i = (t_i + 2) % ships.length;
-                var ss = ships[s_i];
-                var tt = ships[t_i];
-                Beam.level = k; // fugly, fix
-                Beam.width = 2+k/2;
-                Beam.fire(ctx, [ss.local(14, 20), ss.local(26, 20)], tt.local(20, 25));
-                
-            }*/
-            
             scene.update(1/framerate);
             scene.draw({clear: true});
             
