@@ -9,6 +9,11 @@ var Vec2 = function() {
             return new_vec;
         },
         
+        radial: function(r, theta) {
+            return this.new_at(r * Math.cos(theta), r * Math.sin(theta));
+        },
+        
+        
         'magnitude': function() { return Math.sqrt(this.dot(this)); },
         'angle':  function(other) { 
             if (arguments.length === 0)

@@ -44,9 +44,10 @@
             var r = 200;
             alpha = k * 2*Math.PI / n_ships;
 
-            ships[k].pos = Vec2.new_at(400 + r*Math.cos(alpha), 300 + r*Math.sin(alpha));
+            ships[k].pos = Vec2.new_at(400, 300).iadd(Vec2.radial(r, alpha));
+            
             ships[k].angle = Math.PI + alpha + Math.PI/4.4;
-            ships[k].vel = Vec2.new_at(Math.cos(ships[k].angle), Math.sin(ships[k].angle));
+            ships[k].vel = Vec2.radial(1, ships[k].angle);
             ships[k].ang_vel = -0.005;
             
             scene.add(ships[k]);
