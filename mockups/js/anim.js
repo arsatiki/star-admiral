@@ -27,7 +27,7 @@ var CanvasManager = (function() {
                 // but! If something dies because it is old
                 // and something else depends on it, how to signal this?
                 
-                by_time = current.dies && this.time > current.dies;
+                by_time = current.dies !== undefined && this.time > current.dies;
                 current.node.dead |= by_time;
             }
             
