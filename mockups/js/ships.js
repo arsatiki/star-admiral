@@ -124,13 +124,25 @@ var Beam = (function() {
     return {
         'level': 1, 'width': 3, 'sigma': 1,
         
-        'fire': function(ctx, sources, target) {
+        'fire': function (sources, target, opts) {
+            // TODO: handle opts
+            newbeam = Object.create(this);
+            newbeam.sources = sources;
+            newbeam.target = target;
+            return newbeam;
+        },
+        
+        'update': function(t_d) {
+            
+        },
+        
+        'draw': function(ctx) {
             var sid, bid;
             var lineWidths = [this.width, this.width*2/3];
             var colors = [that.levels[this.level], "#fff"];
                         
-            var tgx = target.x + Math.random0w(this.sigma * this.width);
-            var tgy = target.y + Math.random0w(this.sigma * this.width);
+            var tgx = this.target.x + Math.random0w(this.sigma * this.width);
+            var tgy = this.target.y + Math.random0w(this.sigma * this.width);
 
             ctx.save();
             ctx.beginPath();
@@ -140,11 +152,12 @@ var Beam = (function() {
                 ctx.lineWidth = lineWidths[bid];
                 ctx.strokeStyle = colors[bid];
                 
-                for (sid = 0; sid < sources.length; sid++) {
-                    sources[sid].space.transform_to_local(ctx);
-                    ctx.moveTo(sources[sid].x, sources[sid].y);
+                for (sid = 0; sid < this.sources.length; sid++) {
+                    this.sources[sid].space.transform_to_local(ctx);
+                    ctx.moveTo(this.sources[sid].x, this.sources[sid].y);
 
-                    target.space.transform_to_local(ctx);
+                    // TODO: Demeter screams bread.
+                    this.target.space.transform_to_local(ctx);
                     ctx.lineTo(tgx, tgy);
                 }
                 ctx.stroke();
