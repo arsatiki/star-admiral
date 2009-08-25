@@ -21,6 +21,12 @@ var CanvasManager = (function() {
                 current = this.nodes[k];
                 current.node.update(t_delta);
                 
+                // This approach is wrong.
+                // is_dead should be a function of the node
+                // bcos some deaths may only occur after update
+                // but! If something dies because it is old
+                // and something else depends on it, how to signal this?
+                
                 by_time = current.dies && this.time > current.dies;
                 current.node.dead |= by_time;
             }
@@ -61,6 +67,7 @@ var CanvasManager = (function() {
             
             return new_node;
         }
+        
     };
 }) ();
 
