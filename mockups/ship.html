@@ -38,8 +38,6 @@
         var alpha;
         for (k = 0; k < n_ships; k++) {
             ships[k] = Object.create(s);
-            //ships[k].pos = Vec2.new_at(25*k - 25*Math.pow(k-1.5, 2), (k+1)*75);
-            //ships[k].ang_vel += k * Math.PI / 24;
             
             var r = 200;
             alpha = k * 2*Math.PI / n_ships;
