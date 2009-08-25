@@ -13,6 +13,7 @@
           media="screen" title="no title" charset="utf-8">
 
     <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/anim.js"></script>
     <script type="text/javascript" src="js/ships.js"></script>
         
     <script type="text/javascript" charset="utf-8">
@@ -24,6 +25,7 @@
         var n_ships = 7;
         
         ctx = canvas.getContext("2d");
+        ctm = Object.create(CanvasManager).fromElement(canvas);
         
         var framerate = 25;
         s = Object.create(Ship);
@@ -46,20 +48,16 @@
             ships[k].angle = Math.PI + alpha + Math.PI/4.4;
             ships[k].vel = Vec2.new_at(Math.cos(ships[k].angle), Math.sin(ships[k].angle));
             ships[k].ang_vel = -0.005;
+            
+            ctm.add(ships[k]);
         }
 
         Beam.width = 3;
 
         setInterval(function() {
             ctx.clearRect(0, 0, 800, 600);
-            for (k = 0; k < ships.length; k++) {
+            /*for (k = 0; k < ships.length; k++) {
                 ships[k].update(1/framerate).draw(ctx);
-                /*if (k == 2 && Math.abs(ships[k].angle % 2*Math.PI) < 0.8 ) {
-
-                    var t = ships[k].local(0, 0);
-                    var s = ships[(k+1) % ships.length].local(0, 0);
-                    Beam.fire(ctx, [s], t);
-                }*/
                 var t_i = k; var s_i = (t_i + 2) % ships.length;
                 var ss = ships[s_i];
                 var tt = ships[t_i];
@@ -67,7 +65,11 @@
                 Beam.width = 2+k/2;
                 Beam.fire(ctx, [ss.local(14, 20), ss.local(26, 20)], tt.local(20, 25));
                 
-            }
+            }*/
+            
+            ctm.update(1/framerate);
+            ctm.draw();
+            
         }, 1000/framerate);
     }
     </script>
