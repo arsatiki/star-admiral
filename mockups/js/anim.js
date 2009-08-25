@@ -51,11 +51,6 @@ var canvasManager = (function() {
             
             return new_node;
         }
-        
-            
-            
-            
-        }
     };
 }) ();
 

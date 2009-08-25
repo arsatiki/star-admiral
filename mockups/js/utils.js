@@ -57,7 +57,7 @@ function SortBy() {
     return function(a, b) {
         var key, diff;
         for (k = 0; k < keys.length; k++) {
-            key = args[k];
+            key = keys[k];
             diff = a[key] - b[key];
             if (diff != 0)
                 return diff;
