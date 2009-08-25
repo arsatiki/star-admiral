@@ -111,7 +111,7 @@ var Ship = function() {
 
 Math.random0w = function(w) { return w*(Math.random() - 0.5); };
 
-var Beam = function() {
+var Beam = (function() {
     var that = this;
     that.levels = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
     
@@ -148,4 +148,25 @@ var Beam = function() {
             ctx.restore();
         }
     }
-}();
+})();
+
+function framecoords(frame, n_cols) {
+    if (!n_cols) {
+        n_cols = 4;
+    }
+
+    var wf = 256/4, hf = 256/4;
+    var xi = frame % n_cols;
+    var yi = (frame - xi) / n_cols;
+    
+    return { 'sx': xi*wf, 'sy': yi*hf, 'sw': wf, 'sh': hf };
+}
+
+var Explosion = (function() {
+    
+
+    return {
+        'foo': 'bar'
+    };
+})();
+
