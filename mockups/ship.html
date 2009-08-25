@@ -25,7 +25,7 @@
         var n_ships = 7;
         
         ctx = canvas.getContext("2d");
-        ctm = Object.create(CanvasManager).fromElement(canvas);
+        var scene = Object.create(CanvasManager).fromElement(canvas);
         
         var framerate = 25;
         s = Object.create(Ship);
@@ -49,13 +49,14 @@
             ships[k].vel = Vec2.new_at(Math.cos(ships[k].angle), Math.sin(ships[k].angle));
             ships[k].ang_vel = -0.005;
             
-            ctm.add(ships[k]);
+            scene.add(ships[k]);
         }
+
+        // TODO: ADD BEAM OBJECTS
 
         Beam.width = 3;
 
         setInterval(function() {
-            ctx.clearRect(0, 0, 800, 600);
             /*for (k = 0; k < ships.length; k++) {
                 ships[k].update(1/framerate).draw(ctx);
                 var t_i = k; var s_i = (t_i + 2) % ships.length;
@@ -67,8 +68,8 @@
                 
             }*/
             
-            ctm.update(1/framerate);
-            ctm.draw();
+            scene.update(1/framerate);
+            scene.draw({clear: true});
             
         }, 1000/framerate);
     }
