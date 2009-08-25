@@ -39,6 +39,7 @@ var CanvasManager = (function() {
         }, 
         
         draw: function(opts) {
+            opts = opts || {};
             var canvas;
 
             if (opts.clear) {
@@ -52,16 +53,19 @@ var CanvasManager = (function() {
             });
         }, 
         
-        add: function(node, z, TTL) {
-            if (!z || z < 0) { z = 0; }
+        add: function(node, opts) {
+            opts = opts || {};
+            if (!opts.z || opts.z < 0) { opts.z = 0; }
 
             var new_node = {
                 'node': node,
                 'created': this.time,
-                'z': z
+                'z': opts.z
             };
             
-            if (TTL) { new_node.dies = new_node.created + TTL; }
+            if (opts.TTL !== undefined) { 
+                new_node.dies = new_node.created + opts.TTL;
+            }
 
             this.nodes.push(new_node);
             
