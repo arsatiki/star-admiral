@@ -1,14 +1,15 @@
 
 var sceneObjectSort = SortBy('z', 'created');
 
-var canvasManager = (function() {
+var CanvasManager = (function() {
 
     return {
         'time': 0,
+        'nodes': [],
         
         fromElement: function(el) {
             this.context = el.getContext('2d');
-            return context;
+            return this;
         },
         
         update: function(t_delta) {
@@ -32,11 +33,12 @@ var canvasManager = (function() {
         }, 
         
         draw: function() {
+            var outer = this;
             this.nodes.sort(sceneObjectSort);
-            this.nodes.forEach(function(x) {x.draw(this.ctx);});
+            this.nodes.forEach(function(x) {x.node.draw(outer.context);});
         }, 
         
-        addNode: function(node, z, TTL) {
+        add: function(node, z, TTL) {
             if (!z || z < 0) { z = 0; }
 
             var new_node = {
