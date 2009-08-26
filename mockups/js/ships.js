@@ -193,3 +193,60 @@ var Explosion = (function() {
     };
 })();
 
+var Billy = (function() {
+    return {
+        'fire': function (source, target) {
+            var newob = Object.create(this);
+            newob.source = source;
+            newob.target = target;
+            newob.radius = 0;
+            
+            return newob;
+        },
+        
+        'update': function(t_d) {
+            var speed = 10;
+            this.radius += speed * t_d;
+        },
+        
+        'draw': function(ctx) {
+            // TODO: Add a diff method to vec2!
+            var diff = this.target.pos.add(this.source.pos.mul(-1));
+            var angle, distance = diff.magnitude();
+
+            var center, radius;
+            
+            if (this.radius < distance / 2) {
+                // expanding phase
+                center = this.source;
+                radius = this.radius;
+            } else {
+                // contracting phase
+                center = this.target;
+                radius = distance - this.radius;
+                diff.imul(-1);
+            }
+            
+            console.log("Firing billy");
+            
+            if (radius > 0) {
+                ctx.save();
+                
+                angle = diff.angle();
+                
+                ctx.beginPath();
+                ctx.arc(center.x, center.y, radius, angle-Math.PI/2, angle+Math.PI/2, true);
+            
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 5;
+                ctx.stroke();
+            
+                ctx.restore();
+            } else {
+                this.dead = true;
+            }
+        }
+    };
+})();
+
+
