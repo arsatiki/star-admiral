@@ -216,29 +216,27 @@ var Billy = (function() {
 
             var center, radius;
             
-            if (this.radius < distance / 2) {
+            if (this.radius < 0.75 * distance) {
                 // expanding phase
-                center = this.source;
+                center = this.source.pos;
                 radius = this.radius;
+                diff.imul(-1);
             } else {
                 // contracting phase
-                center = this.target;
+                center = this.target.pos;
                 radius = distance - this.radius;
-                diff.imul(-1);
             }
-            
-            console.log("Firing billy");
-            
+                    
             if (radius > 0) {
                 ctx.save();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1;
                 
                 angle = diff.angle();
                 
                 ctx.beginPath();
                 ctx.arc(center.x, center.y, radius, angle-Math.PI/2, angle+Math.PI/2, true);
             
-                ctx.strokeStyle = '#fff';
-                ctx.lineWidth = 5;
                 ctx.stroke();
             
                 ctx.restore();
