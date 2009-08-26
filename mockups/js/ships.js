@@ -170,7 +170,7 @@ var Beam = (function() {
             
             ctx.restore();
         }
-    }
+    };
 })();
 
 function framecoords(frame, n_cols) {
