@@ -64,7 +64,13 @@
             );
         }
 
+        var billy_fired = false;
         setInterval(function() {
+            if (!billy_fired && scene.time > 1) {
+                billy_fired = true;
+                scene.add(Billy.fire(ships[0], ships[4]), {z: 2});
+            }
+
             scene.update(1/framerate);
             scene.draw({clear: true});
             
