@@ -37,13 +37,7 @@ var Ship = function() {
             ctx.drawImage(this.icon, 0, 0);
             ctx.restore();
         }, 
-        
-        'load_icon': function(url) {
-            this.icon = new Image();
-            this.icon.src = url;
-            return this;
-        },
-        
+                
         'local': function(x, y) {
             return {'x': x, 'y': y, 'space': this};
         }
