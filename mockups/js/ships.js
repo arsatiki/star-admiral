@@ -114,8 +114,6 @@ var Ship = function() {
     
 }();
 
-Math.random0w = function(w) { return w*(Math.random() - 0.5); };
-
 var Beam = (function() {
     var that = this;
     that.levels = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];

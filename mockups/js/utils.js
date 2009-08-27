@@ -65,3 +65,5 @@ function SortBy() {
         return 0;
     };
 }
+
+Math.random0w = function(w) { return w*(Math.random() - 0.5); };
