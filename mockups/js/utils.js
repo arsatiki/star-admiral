@@ -66,4 +66,11 @@ function SortBy() {
     };
 }
 
+// TODO: Futureproof these
 Math.random0w = function(w) { return w*(Math.random() - 0.5); };
+
+Image.fromURL = function(url) {
+    var img = new Image();
+    img.src = url;
+    return img;
+};
