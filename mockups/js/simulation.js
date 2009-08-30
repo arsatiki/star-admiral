@@ -16,32 +16,29 @@ function add_beams(scene, ships) {
     
 }
 
+function create_ship(k) {
+    var alpha = k * 2*Math.PI / ships.length;
+
+    var ship = Object.create(Ship);
+    ship.icon = Image.fromURL("pics/ship.png");
+
+    ship.pos = Vec2.new_at(400, 300).iadd(Vec2.radial(200, alpha));
+    
+    ship.angle = Math.PI + alpha + Math.PI/4.4;
+    ship.vel = Vec2.radial(5, ship.angle);
+    ship.ang_vel = -0.005;
+    
+    return ship;
+}
+
 function create_scene(canvas) {
     var k;
     var ships = new Array(7);
     
     var scene = Object.create(CanvasManager).fromElement(canvas);
-    
-    s = Object.create(Ship);
-    
-    s.icon = Image.fromURL("pics/ship.png");
-    s.pos = Vec2.new_at(0, 300);
-    //s.ang_vel = Math.PI/12;
-    //s.vel = Vec2.new_at(10, 0);
 
-    var alpha;
     for (k = 0; k < ships.length; k++) {
-        ships[k] = Object.create(s);
-        
-        var r = 200;
-        alpha = k * 2*Math.PI / ships.length;
-
-        ships[k].pos = Vec2.new_at(400, 300).iadd(Vec2.radial(r, alpha));
-        
-        ships[k].angle = Math.PI + alpha + Math.PI/4.4;
-        ships[k].vel = Vec2.radial(5, ships[k].angle);
-        ships[k].ang_vel = -0.005;
-        
+        ships[k] = create_ship(k);
         scene.add(ships[k]);
     }
     
