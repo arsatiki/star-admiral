@@ -16,8 +16,8 @@ function add_beams(scene, ships) {
     
 }
 
-function create_ship(k) {
-    var alpha = k * 2*Math.PI / ships.length;
+function create_ship(k, n) {
+    var alpha = k * 2*Math.PI / n;
 
     var ship = Object.create(Ship);
     ship.icon = Image.fromURL("pics/ship.png");
@@ -38,7 +38,7 @@ function create_scene(canvas) {
     var scene = Object.create(CanvasManager).fromElement(canvas);
 
     for (k = 0; k < ships.length; k++) {
-        ships[k] = create_ship(k);
+        ships[k] = create_ship(k, ships.length);
         scene.add(ships[k]);
     }
     
