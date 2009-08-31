@@ -71,26 +71,30 @@ var Beam = (function() {
         },
         
         fillBeam: function(ctx, source, target_space, tgx, tgy, r) {
-            var k, NGONS = 32;
+            var k, NGONS = 7;
             var angle = 2 * Math.PI / NGONS;
             ctx.save();
             source.space.transform_to_local(ctx);
             ctx.translate(source.x, source.y);
-            ctx.rotate(0.3);
-            for (k = 0; k < NGONS; k++) {
-                ctx.save();
-                ctx.beginPath();
-                
-                ctx.rotate(k*angle);
+
+            ctx.beginPath();
+            for (k = 0; k < NGONS; k += 1) {
+                ctx.rotate(angle);
                 ctx.moveTo(r, 0);
-                ctx.rotate(angle * 1.5);
-                ctx.lineTo(r, 0);
+
+                ctx.save();
+                ctx.save();
                 target_space.transform_to_local(ctx);
                 ctx.lineTo(tgx, tgy);
-
-                ctx.closePath();
-                ctx.fill();
                 ctx.restore();
+                
+                ctx.rotate(-angle);
+                ctx.lineTo(r, 0);
+                
+                ctx.restore();
+                ctx.lineTo(r, 0);
+
+                ctx.fill();
             }
 
             ctx.restore();
@@ -112,7 +116,7 @@ var Beam = (function() {
                 ctx.fillStyle = colors[bid];
                 
                 for (sid = 0; sid < this.sources.length; sid++) {
-                    this.fillBeam(ctx, this.sources[sid], this.target.space, tgx, tgy, lineWidths[bid]);
+                    this.fillBeam(ctx, this.sources[sid], this.target.space, tgx, tgy, lineWidths[bid] / 2);
                 }
             }
             
