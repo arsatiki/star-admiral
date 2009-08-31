@@ -114,6 +114,8 @@ var Beam = (function() {
             
             for (bid = 0; bid < colors.length; bid++) {
                 ctx.fillStyle = colors[bid];
+                ctx.shadowBlur = lineWidths[bid];
+                ctx.shadowColor = colors[bid];
                 
                 for (sid = 0; sid < this.sources.length; sid++) {
                     this.fillBeam(ctx, this.sources[sid], this.target.space, tgx, tgy, lineWidths[bid] / 2);
