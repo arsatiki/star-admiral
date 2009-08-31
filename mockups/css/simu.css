@@ -1,0 +1,13 @@
+body {
+    background: url('../pics/galaxy_starfield.png');
+}
+
+#wrapper {
+    width: 800px; height: 600px;
+    margin: 30px auto 1em;
+    border: 1px solid #ddd;
+    background: rgba(0, 0, 64, .5);
+    padding: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+}

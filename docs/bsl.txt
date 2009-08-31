@@ -1,0 +1,21 @@
+Battle Scripting Language
+
+timecode = (\d+):(\d+)
+ship = \w(\w|\d)*
+hardpoint = \w(\w|\d)*
+xypair = (-\d+)\s*,\s*(-?\d+)
+target = xypair | ship\.hardpoint
+
+orders 
+
+TODO commands
+
+Open q's:
+* how to model acceleration and turning
+* how to clean up after ship blows up
+* how to handle firing over several frames? (fire at target for timecode?)
+* how to handle more than one firing target?¯
+* link hardpoints for dual fire
+
+Misc:
+RegExp(rex1.source + rex2.source) 

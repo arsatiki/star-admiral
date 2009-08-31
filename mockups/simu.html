@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+    <title>Battle Simulator</title>
+    
+    <style type="text/css" media="screen">
+        canvas { border: 1px solid white; }
+    </style>
+
+    <link rel="stylesheet" href="css/simu.css" type="text/css"
+          media="screen" title="no title" charset="utf-8">
+
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/anim.js"></script>
+    <script type="text/javascript" src="js/ships.js"></script>
+    <script type="text/javascript" src="js/explosion.js"></script>
+    
+    <script type="text/javascript" src="js/simulation.js"></script>
+
+        
+    <script type="text/javascript" charset="utf-8">
+    function run() {
+        var canvas = document.getElementById("canv");
+        var scene = create_scene(canvas);
+
+        var framerate = 25;
+        setInterval(function() {
+            scene.update(1/framerate);
+            scene.draw({clear: true});
+            
+        }, 1000/framerate);
+    }
+    </script>
+</head>
+<body onload="run()">
+    <div id="wrapper">
+        <canvas id="canv" width="800" height="600"> </canvas>
+    </div>
+            
+</body>
