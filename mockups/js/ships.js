@@ -81,19 +81,19 @@ var Beam = (function() {
             ctx.save();
             ctx.beginPath();
             ctx.lineCap = "round";
+            ctx.miterLimit = 100;
             
             for (bid = 0; bid < colors.length; bid++) {
                 ctx.lineWidth = lineWidths[bid];
                 ctx.strokeStyle = colors[bid];
                 
-                for (sid = 0; sid < this.sources.length; sid++) {
-                    this.sources[sid].space.transform_to_local(ctx);
-                    ctx.moveTo(this.sources[sid].x, this.sources[sid].y);
-
-                    // TODO: Demeter screams bread.
-                    this.target.space.transform_to_local(ctx);
-                    ctx.lineTo(tgx, tgy);
-                }
+                this.sources[0].space.transform_to_local(ctx);
+                ctx.moveTo(this.sources[0].x, this.sources[0].y);
+                this.target.space.transform_to_local(ctx);
+                ctx.lineTo(tgx, tgy);
+                this.sources[1].space.transform_to_local(ctx);
+                ctx.lineTo(this.sources[1].x, this.sources[1].y);
+                
                 ctx.stroke();
             }
             
