@@ -70,6 +70,32 @@ var Beam = (function() {
             
         },
         
+        fillBeam: function(ctx, source, target_space, tgx, tgy, r) {
+            var k, NGONS = 32;
+            var angle = 2 * Math.PI / NGONS;
+            ctx.save();
+            source.space.transform_to_local(ctx);
+            ctx.translate(source.x, source.y);
+            ctx.rotate(0.3);
+            for (k = 0; k < NGONS; k++) {
+                ctx.save();
+                ctx.beginPath();
+                
+                ctx.rotate(k*angle);
+                ctx.moveTo(r, 0);
+                ctx.rotate(angle * 1.5);
+                ctx.lineTo(r, 0);
+                target_space.transform_to_local(ctx);
+                ctx.lineTo(tgx, tgy);
+
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            ctx.restore();
+        },
+        
         'draw': function(ctx) {
             var sid, bid;
             var lineWidths = [this.width, this.width*2/3];
@@ -83,18 +109,11 @@ var Beam = (function() {
             ctx.lineCap = "round";
             
             for (bid = 0; bid < colors.length; bid++) {
-                ctx.lineWidth = lineWidths[bid];
-                ctx.strokeStyle = colors[bid];
+                ctx.fillStyle = colors[bid];
                 
                 for (sid = 0; sid < this.sources.length; sid++) {
-                    this.sources[sid].space.transform_to_local(ctx);
-                    ctx.moveTo(this.sources[sid].x, this.sources[sid].y);
-
-                    // TODO: Demeter screams bread.
-                    this.target.space.transform_to_local(ctx);
-                    ctx.lineTo(tgx, tgy);
+                    this.fillBeam(ctx, this.sources[sid], this.target.space, tgx, tgy, lineWidths[bid]);
                 }
-                ctx.stroke();
             }
             
             ctx.restore();
