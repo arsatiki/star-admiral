@@ -82,20 +82,21 @@ var Beam = (function() {
             ctx.beginPath();
             ctx.lineCap = "round";
             
-            for (bid = 0; bid < colors.length; bid++) {
-                ctx.lineWidth = lineWidths[bid];
-                ctx.strokeStyle = colors[bid];
-                
-                for (sid = 0; sid < this.sources.length; sid++) {
-                    this.sources[sid].space.transform_to_local(ctx);
-                    ctx.moveTo(this.sources[sid].x, this.sources[sid].y);
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = this.width * .66;
+            ctx.shadowBlur = this.width;
+            ctx.shadowColor = that.levels[this.level];
+            
+            for (sid = 0; sid < this.sources.length; sid++) {
+                this.sources[sid].space.transform_to_local(ctx);
+                ctx.moveTo(this.sources[sid].x, this.sources[sid].y);
 
-                    // TODO: Demeter screams bread.
-                    this.target.space.transform_to_local(ctx);
-                    ctx.lineTo(tgx, tgy);
-                }
-                ctx.stroke();
+                // TODO: Demeter screams bread.
+                this.target.space.transform_to_local(ctx);
+                ctx.lineTo(tgx, tgy);
             }
+            ctx.stroke();
+
             
             ctx.restore();
         }
