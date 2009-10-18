@@ -1,0 +1,73 @@
+# is the comment char. Ignore until end of line.
+
+# PREAMBLE
+# Timecodeless instructions may appear anywhere, but their definitions
+# are not guaranteed to be available in preceding instructions.
+
+# You may use the same name twice. The latter definition overrides
+# the previous one.
+
+# Init graphic representations of objects
+# TODO: Having both keywordish and positional arguments seems odd.
+
+# Define the beam.
+# beam <name> <key val>+
+# TODO: specify defaults
+
+beam punylazr width 10 level 5
+
+# Define a sprite. First argument (URL for the image) is always required.
+# Next two (x y) define the “center of mass”, i.e. the origin.
+# Co-ordinates are in ship-local coordinates.
+
+sprite raider http://.../raider.png 20 40
+
+# Shortcut form: sprite <name> 
+# Default origin is width/2, height/2
+sprite torpedo http://.../torp.png
+
+# Beams, sprites and ships are all in different namespaces.
+# It is allowed to have a beam called raider, a sprite called raider
+# and a ship called raider.
+
+# SCRIPT
+
+# <timecode> <ship name> <command> <parameters>
+
+# Ships are created ad hoc simply by referring to them by their name.
+# They become visible after their sprite and position are set.
+
+0:0 raider1 usesprite raider 
+”    〃      setpos 100 200,  # optionally angle in degs
+
+# The parser keeps track of previous non-empty row
+# and inserts whatever value was in the corresponding slot
+# when it encounters ", ” or  〃
+
+# hardpoint <name> <weapon representation> <x> <y>
+# Hardpoints are not in a global namespace. They are available only
+# to the ship (or its clones).
+# Coordinates are are in ship-local coordinates.
+
+”    〃      hardpoint weap1 punylazr 20 10
+”    〃      hardpoint weap2 "        20 70
+
+# Two different accelerations:
+"   "       accel -0.1 7.8
+"   "       accel forward .1
+
+0   raider2 clone raider1
+"   "       setpos 200 200
+
+# for <duration> repeats the following command
+# fire <hardpoint>+ <shipname>
+
+# Fires a beam from the hardpoints at shipname. Beam weapons
+# fired at the same time are linked if possible. ATM this means that
+# their beam specification is the same.
+
+0:10 raider1 for 0:15 fire weap1 weap2 cashcow
+
+# issue a different fire commands for non-joined fire
+0:10 raider2 for 0:15 fire weap1 cashcow
+"    "       for 0:10 fire weap2 cashcow
